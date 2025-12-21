@@ -4,7 +4,7 @@ let panelIndex = -1;
 
 // get panels from JSON
 const loadPanels = async () => {
-    const response = await fetch("valentine.json");
+    const response = await fetch("template.json");
     panels = await response.json();
     console.log(panels);
 }
