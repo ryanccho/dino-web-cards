@@ -4,7 +4,7 @@ let panelIndex = -1;
 
 // get panels from JSON
 const loadPanels = async () => {
-    const response = await fetch("valentine.json");
+    const response = await fetch("template.json");
     panels = await response.json();
     console.log(panels);
 }
@@ -30,7 +30,7 @@ const advance = () => {
     if (panelIndex === 7 || panelIndex === 8 || panelIndex === 9 || panelIndex === 14) setTimeout(advance, 2500);
 
     // image
-    updateElement("image", currentPanel.image, "src");
+    updateElement("character", currentPanel.image, "src");
 
     // dialogue
     updateElement("dialogue", currentPanel.dialogue, "innerHTML");
@@ -55,8 +55,8 @@ const advance = () => {
     // card
     updateElement("card", currentPanel.card);
     document.getElementById("card_name").innerText = username;
-    if (currentPanel.card) document.getElementById("image_container").style.display = "none";
-    else document.getElementById("image_container").style.display = "flex";
+    if (currentPanel.card) document.getElementById("character_container").style.display = "none";
+    else document.getElementById("character_container").style.display = "flex";
 }
 
 // on page load

@@ -1,0 +1,101 @@
+[
+    {
+        "dialogue": "<h1>Tap/click anywhere to start</h1>"
+    },
+    {
+        "image": "assets/imgs/duck.png",
+        "dialogue": "<h1>Why hello there! It's a wonderful day today isn't it?</h1>",
+        "buttons": [
+            { "type": "button", "value": "yes!" },
+            { "type": "button", "value": "sure is!" }
+        ]
+    },
+    {
+        "image": "assets/imgs/duck.png",
+        "dialogue": "<h1>Ah yes, there is a magical feeling of <span class=\"highlight\">love</span> in the air. It must be a special day today!</h1>",
+        "buttons": [
+            { "type": "button", "value": "it's valentines day!" },
+            { "type": "button", "value": "oh really? i didn't notice" }
+        ]
+    },
+    {
+        "image": "assets/imgs/duck.png",
+        "dialogue": "<h1>Oh that's right! Silly me, how could i forget? It's <span class=\"highlight\">Valentine's Day</span>, after all!</h1>",
+        "buttons": [
+            { "type": "button", "value": "uh huh" },
+            { "type": "button", "value": "you're a silly duck" }
+        ]
+    },
+    {
+        "image": "assets/imgs/duck.png",
+        "dialogue": "<h1>Well miss, have you received your <span class=\"highlight\">Valentine</span> this year?</h1>",
+        "buttons": [
+            { "type": "button", "value": "no" },
+            { "type": "button", "value": "my boyfriend forgot it's valentine's day" }
+        ]
+    },
+    {
+        "image": "assets/imgs/surprised_duck.png",
+        "dialogue": "<h1>What?! That can't be right. Surely someone has sent you a <span class=\"highlight\">Valentine</span>!</h1>",
+        "buttons": [
+            { "type": "button", "value": "nope" },
+            { "type": "button", "value": "nuh uh" }
+        ]
+    },
+    {
+        "image": "assets/imgs/duck.png",
+        "dialogue": "<h1>Maybe I have a letter for you here in my bag. What's your name, miss?</h1>",
+        "input": true
+    },
+    {
+        "image": "assets/imgs/duck.png",
+        "dialogue": "<h1>Nice to meet you, miss <span id=\"insert_name\" class=\"highlight\"></span>. Let's see here...</h1>",
+        "insertName": true
+    },
+    {
+        "image": "assets/imgs/duck.png",
+        "dialogue": "<h1>...</h1>"
+    },
+    {
+        "image": "assets/imgs/duck.png",
+        "dialogue": "<h1>... ... ...</h1>"
+    },
+    {
+        "image": "assets/imgs/duck.png",
+        "dialogue": "<h1>Ah yes! Here we are! A letter for you, miss <span id=\"insert_name\" class=\"highlight\"></span>!</h1>",
+        "insertName": true,
+        "buttons": [
+            { "type": "div", "value": "<img id=\"letter_button\" src=assets/imgs/letter.png>" }
+        ]
+    },
+    {
+        "card": true,
+        "buttons": [
+            { "type": "button", "value": "close" }
+        ]
+    },
+    {
+        "image": "assets/imgs/duck.png",
+        "dialogue": "<h1>I knew someone as wonderful as you would have a <span class=\"highlight\">Valentine</span>! Looks like it came just in time!</h1>",
+        "buttons": [
+            { "type": "button", "value": "thank you mr. duck!" },
+            { "type": "button", "value": "yayyyy" }
+        ]
+    },
+    {
+        "image": "assets/imgs/duck.png",
+        "dialogue": "<h1>Well I better be off, lots more <span class=\"highlight\">Valentines</span> to deliver today! After while!</h1>",
+        "buttons": [
+            { "type": "button", "value": "bye bye!" },
+            { "type": "button", "value": "in awhile!" }
+        ]
+    },
+    {
+        "image": "assets/imgs/poof.png",
+        "dialogue": "<h1>(Mr. Duck zooms off)</h1>"
+    },
+    {
+        "image": "assets/imgs/letter.png",
+        "dialogue": "<h1>the end.</h1>"
+    }
+]

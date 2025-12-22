@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>A Wonderful Day</title>
-    <link rel="icon" type="image/png" href="imgs/heart.png">
+    <title>A Snowy Day</title>
+    <link rel="icon" type="image/png" href="assets/imgs/snowflake.png">
 	<link rel="stylesheet" href="css/styles.css" type="text/css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,27 +13,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="card_container">
-        <div id="card">
-            <div id="heart"><img src="imgs/heart.png"></div>
-            <p>
-                My dearest <span id="card_name"></span>,<br><br>
-                
-                Happy Valentines Dayyy!!! Hehehe I can't believe this is already our second Valentine's Day together! Whether it's a special day like this or just another Tuesday, I celebrate and cherish each and every moment I get with you because I'm just so blessed to have met you and to have the opportunity to build a love as wonderful as ours. You have single-handedly and wholly changed my life for the better, and I can only hope that I've done the same for you. Looking forward to many more days of eating at silly restaurants, going on adventures, solving magic puzzles, playing biscuitball, and celebrating Valentines. I love you from our Minecraft world and back (that's really far). Happy 2nd Valentine's to buggemses!!!<br><br>
-                wiggles and giggles,<br>
-                bug<br><br>
-                
-                P.S. willlll youuuu bee my valentinneeee??
-            </p>
+    <div id="mobile_view">
+        <p>Rotate screen to view</p>
+        <img id="rotate_icon" src="assets/imgs/rotate_icon.png">
+    </div>
+    <div id="desktop_view">
+        <div id="scene_container">
+            <video id="video-bg" autoplay muted loop playsinline>
+                <source src="assets/winter_background.mp4" type="video/mp4" />
+            </video>
+            <div id="character">
+                <img id="character_img" src="assets/imgs/duck.png">
+            </div>
         </div>
-    </div>
-    <div id="image_container">
-        <div><img id="image"></div>
-    </div>
-    <div id="content_container">
-        <div id="dialogue" class="section"></div>
-        <div id="input" class="section"><input type="text" placeholder="Name" id="username_input"></div>
-        <div id="buttons" class="section"></div>
+        <!-- <div id="dialogue_container">
+            <div id="dialogue" class="section"></div>
+            <div id="input" class="section"><input type="text" placeholder="Name" id="username_input"></div>
+            <div id="buttons" class="section"></div>
+        </div>
+        <div id="card_container">
+            <div id="card">
+                <div id="heart"><img src="assets/imgs/heart.png"></div>
+                <p>
+                    My dearest <span id="card_name"></span>,<br><br>
+                    
+                    Happy Valentines Dayyy!!! Hehehe I can't believe this is already our second Valentine's Day together! Whether it's a special day like this or just another Tuesday, I celebrate and cherish each and every moment I get with you because I'm just so blessed to have met you and to have the opportunity to build a love as wonderful as ours. You have single-handedly and wholly changed my life for the better, and I can only hope that I've done the same for you. Looking forward to many more days of eating at silly restaurants, going on adventures, solving magic puzzles, playing biscuitball, and celebrating Valentines. I love you from our Minecraft world and back (that's really far). Happy 2nd Valentine's to buggemses!!!<br><br>
+                    wiggles and giggles,<br>
+                    bug<br><br>
+                    
+                    P.S. willlll youuuu bee my valentinneeee??
+                </p>
+            </div>
+        </div> -->
     </div>
     <script src="js/index.js"></script>
 </body>
