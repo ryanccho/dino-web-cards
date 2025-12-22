@@ -30,7 +30,7 @@ const advance = () => {
     if (panelIndex === 7 || panelIndex === 8 || panelIndex === 9 || panelIndex === 14) setTimeout(advance, 2500);
 
     // image
-    updateElement("character", currentPanel.image, "src");
+    updateElement("character_img", currentPanel.image, "src");
 
     // dialogue
     updateElement("dialogue", currentPanel.dialogue, "innerHTML");
