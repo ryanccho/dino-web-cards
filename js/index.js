@@ -1,44 +1,60 @@
-let userName = "";
-let duckName = "";
+// GLOBALS
 let dialogueTree;
+let state = {
+    userName: "",
+    duckName: "",
+    currentNodeID: ""
+};
+
+// IDS
 const head = "start";
+const textElementID = "text";
+const imageElementID = "character_img";
+const inputElementID = "text_input";
 
 // get dialogue from JSON
 const getDialogue = async () => {
     const response = await fetch("dialogue.json");
     dialogueTree = await response.json();
-    console.log(dialogueTree);
+    console.log("Dialogue Tree:", dialogueTree);
 }
 
 // helper function to update elements
 const updateElement = (elementID, value, property) => {
     const element = document.getElementById(elementID);
-    element.style.display = value ? "block" : "hidden";
+    element.style.display = value ? "block" : "none";
     if (value && property) element[property] = value;
 }
 
-// render current node
+// helper function to resolve text
+const resolveText = (template, state) => {
+    return template.replace(/\{(\w+)\}/g, (_, key) => {
+        return state[key] ?? `{${key}}`;
+    });
+}
+
+// render node
 const renderNode = nodeID => {
+    // update state
+    state.currentNodeID = nodeID;
+    console.log("State: ", state);
+
     const currentNode = dialogueTree[nodeID];
     console.log("Current Node: ", nodeID, currentNode);
 
     // render text
-    // updateElement("text", currentNode.text, "innerHTML");
-    const dialogueElement = document.getElementById("text");
-    if (currentNode.text) {
-        dialogueElement.innerHTML = `<h1>${currentNode.text}</h1>`;
-        dialogueElement.style.display = "block";
-    } else dialogueElement.style.display = "none";
+    if (currentNode.text) updateElement(textElementID, `<h1>${resolveText(currentNode.text, state)}</h1>`, "innerHTML");
+    else updateElement(textElementID);
     // if (currentNode.insertName) document.getElementById("insert_name").innerText = username;
     
     // render image
-    // updateElement("character_img", `assets/imgs/${currentNode.image}.png`, "src");
-    const imageElement = document.getElementById("character_img");
-    if (currentNode.image) {
-        imageElement.src = `assets/imgs/${currentNode.image}.png`;
-        imageElement.style.display = "block";
-    } else imageElement.style.display = "none";
+    if (currentNode.image) updateElement(imageElementID, `assets/imgs/${currentNode.image}.png`, "src");
+    else updateElement(imageElementID);
 
+    // render input
+    if (currentNode.input) updateElement(inputElementID, currentNode.input, "placeholder");
+    else updateElement(inputElementID);
+    
     // render buttons
     const button_container = document.getElementById("button_container");
     button_container.innerHTML = "";
@@ -46,30 +62,19 @@ const renderNode = nodeID => {
         currentNode.responses.forEach((button, index) => {
             const buttonElement = document.createElement("button");
             buttonElement.id = `button${index+1}`;
-            buttonElement.innerHTML = button.label;
+            buttonElement.innerHTML = resolveText(button.label, state);
             buttonElement.addEventListener("click", () => renderNode(button.next));
             button_container.appendChild(buttonElement);
         });
     }
 
-    // input
-    // updateElement("input_container", currentNode.input);
-    const inputElement = document.getElementById("input_container");
-    const textInput = document.getElementById("text_input");
-    if (currentNode.input) {
-        inputElement.style.display = "flex";
-        textInput.addEventListener("keydown", event => {
-            if (event.key === "Enter" && textInput.value) {
-                if (currentNode.input === "userName") userName = `${textInput.value}`;
-                else if (currentNode.input === "duckName") duckName = `${textInput.value}`;
-                textInput.value = "";
-                renderNode(currentNode.next);
-            }
-        }, { once: true });
-    } else inputElement.style.display = "none";
-
     // set timed nodes
     if (currentNode.timeout) setTimeout(() => renderNode(currentNode.next), currentNode.timeout);
+
+    // update state
+    if (currentNode.set) {
+        for (const key in currentNode.set) state[key] = currentNode.set[key];
+    }
 
     // card
     // updateElement("card", currentNode.card);
@@ -86,5 +91,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.body.addEventListener("click", () => renderNode(head), { once: true });
 
     document.body.style.display = "block";
-    console.log("Page loaded");
+    console.log("Page loaded"); 
+    console.log("State: ", state);
+});
+
+// on input submit
+document.getElementById(inputElementID).addEventListener("keydown", ({ key, target }) => {
+    if (key === "Enter" && target.value) {
+        if (dialogueTree[state.currentNodeID].input === "Your Name") state.userName = target.value;
+        else if (dialogueTree[state.currentNodeID].input === "Duck's Name") state.duckName = target.value;
+        target.value = "";
+        renderNode(dialogueTree[state.currentNodeID].next);
+    }
 });

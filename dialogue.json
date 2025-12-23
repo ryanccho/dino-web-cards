@@ -23,7 +23,7 @@
                 "next": "duck_pause"
             },
             {
-                "label": "Mr. Duck!",
+                "label": "It's you again!",
                 "next": "duck_pause"
             }
         ]
@@ -35,7 +35,7 @@
         "next": "duck_recognize"
     },
     "duck_recognize": {
-        "text": "Quackems! Why wait a minute! I remember you! You're miss...buggems! Is that right?",
+        "text": "Quackems! Why wait a minute! I remember you! You're miss...<span class=\"highlight\">buggems</span>! Is that right?",
         "image": "surprised_duck",
         "responses": [
             {
@@ -51,11 +51,14 @@
     "duck_right": {
         "text": "Ah yes! You're the kind young lady whose valentine I delivered last year! Do you remember my name?",
         "image": "duck",
-        "input": "duckName",
+        "input": "Duck's Name",
+        "set": {
+            "userName": "buggems"
+        },
         "next": "duck_right_introduction"
     },
     "duck_right_introduction": {
-        "text": "Why yes, that's me! Mr. --- Duck, at your service!",
+        "text": "Why yes, that's me! <span class=\"highlight\">{duckName}</span>, at your service!",
         "image": "duck",
         "responses": [
             {
@@ -63,7 +66,7 @@
                 "next": "duck_special_day"
             },
             {
-                "label": "nice to see you again Mr. Duck!",
+                "label": "nice to see you again <span class=\"highlight\">{duckName}</span>!",
                 "next": "duck_special_day"
             }
         ]
@@ -71,17 +74,17 @@
     "duck_wrong": {
         "text": "Oh I'm so sorry, I must have forgotten. I know I've met you before. What was your name again miss?",
         "image": "duck",
-        "input": "userName",
+        "input": "Your Name",
         "next": "duck_wrong_name"
     },
     "duck_wrong_name": {
-        "text": "Ah that's right, how could I forget? Miss ___! So good to see you again! Do you remember my name?",
+        "text": "Ah that's right, how could I forget? Miss <span class=\"highlight\">{userName}</span>! So good to see you again! Do you remember my name?",
         "image": "duck",
-        "input": "duckName",
+        "input": "Duck's Name",
         "next": "duck_wrong_introduction"
     },
     "duck_wrong_introduction": {
-        "text": "Yes! Your memory is much sharper than mine it seems. Mr. --- Duck at your service!",
+        "text": "Yes! Your memory is much sharper than mine it seems. <span class=\"highlight\">{duckName}</span> at your service!",
         "image": "duck",
         "responses": [
             {
@@ -89,7 +92,7 @@
                 "next": "duck_special_day"
             },
             {
-                "label": "nice to see you again Mr. Duck!",
+                "label": "nice to see you again <span class=\"highlight\">{duckName}</span>!",
                 "next": "duck_special_day"
             }
         ]
