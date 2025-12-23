@@ -50,14 +50,13 @@ input {
     color: #202020;
     border: none;
     border-radius: 80px;
-    margin: 0.5em 0;
     padding: 0.5em 1em;
 }
 
 /* CUSTOM (ALPHABETICAL) */
 
-#buttons {
-    min-height: 12%;
+#button_container {
+    display: flex;
     width: 100%;
     flex-direction: row;
     justify-content: center;
@@ -77,6 +76,10 @@ input {
     top: 58%;
     left: 50%;
     transform: translateX(-50%);
+}
+
+#character_img {
+    display: none;
 }
 
 #dialogue_container {
@@ -107,6 +110,10 @@ input {
     color: #C2181B;
 }
 
+#input_container {
+    display: none;
+}
+
 #letter_button {
     width: 5em;
 }
@@ -126,6 +133,15 @@ input {
     justify-content: center;
 }
 
+#response_container {
+    min-height: 12%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 #rotate_icon {
     height: 1em;
 }
@@ -138,11 +154,11 @@ input {
     transform: translateY(-50%);
 }
 
-.section {
+/* .section {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-}
+} */
 
 #video-bg {
     width: 100%;

@@ -1,0 +1,102 @@
+{
+    "start": {
+        "text": "(It's a beautiful snowy day. You're on a walk when you hear rustling in the bushes beside you.)",
+        "timeout": 500,
+        "next": "duck_offscreen"
+    },
+    "duck_offscreen": {
+        "text": "*Huff puff* My oh my, all this snow sure makes it hard to walk around!",
+        "timeout": 500,
+        "next": "duck_appears"
+    },
+    "duck_appears": {
+        "image": "duck",
+        "timeout": 300,
+        "next": "duck_greeting"
+    },
+    "duck_greeting": {
+        "text": "Oh why hello there! Quite a snowy day today, isn't it?",
+        "image": "duck",
+        "responses": [
+            {
+                "label": "Sure is!",
+                "next": "duck_pause"
+            },
+            {
+                "label": "Mr. Duck!",
+                "next": "duck_pause"
+            }
+        ]
+    },
+    "duck_pause": {
+        "text": "...",
+        "image": "duck",
+        "timeout": 200,
+        "next": "duck_recognize"
+    },
+    "duck_recognize": {
+        "text": "Quackems! Why wait a minute! I remember you! You're miss...buggems! Is that right?",
+        "image": "surprised_duck",
+        "responses": [
+            {
+                "label": "That's me!",
+                "next": "duck_right"
+            },
+            {
+                "label": "No...",
+                "next": "duck_wrong"
+            }
+        ]
+    },
+    "duck_right": {
+        "text": "Ah yes! You're the kind young lady whose valentine I delivered last year! Do you remember my name?",
+        "image": "duck",
+        "input": "duckName",
+        "next": "duck_right_introduction"
+    },
+    "duck_right_introduction": {
+        "text": "Why yes, that's me! Mr. --- Duck, at your service!",
+        "image": "duck",
+        "responses": [
+            {
+                "label": "yayyyyy",
+                "next": "duck_special_day"
+            },
+            {
+                "label": "nice to see you again Mr. Duck!",
+                "next": "duck_special_day"
+            }
+        ]
+    },
+    "duck_wrong": {
+        "text": "Oh I'm so sorry, I must have forgotten. I know I've met you before. What was your name again miss?",
+        "image": "duck",
+        "input": "userName",
+        "next": "duck_wrong_name"
+    },
+    "duck_wrong_name": {
+        "text": "Ah that's right, how could I forget? Miss ___! So good to see you again! Do you remember my name?",
+        "image": "duck",
+        "input": "duckName",
+        "next": "duck_wrong_introduction"
+    },
+    "duck_wrong_introduction": {
+        "text": "Yes! Your memory is much sharper than mine it seems. Mr. --- Duck at your service!",
+        "image": "duck",
+        "responses": [
+            {
+                "label": "yayyyyy",
+                "next": "duck_special_day"
+            },
+            {
+                "label": "nice to see you again Mr. Duck!",
+                "next": "duck_special_day"
+            }
+        ]
+    },
+    "duck_special_day": {
+        "text": "I recall we met on a very special day last year. It seems like today is yet another special day! Do you know what day it is?",
+        "image": "duck",
+        "responses": []
+    }
+}
