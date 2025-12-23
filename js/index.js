@@ -1,77 +1,121 @@
-let username = "";
-let panels;
-let panelIndex = -1;
+// GLOBALS
+let dialogueTree;
+let state = {
+    userName: "",
+    duckName: "",
+    currentNodeID: ""
+};
 
-// get panels from JSON
-const loadPanels = async () => {
-    const response = await fetch("template.json");
-    panels = await response.json();
-    console.log(panels);
+// IDS
+const head = "start";
+// const head = "partner";
+const textElementID = "text";
+const characterElementID = "character_img";
+const imageElementID = "newspaper_img";
+const inputElementID = "text_input";
+
+// get dialogue from JSON
+const getDialogue = async () => {
+    const response = await fetch("dialogue.json");
+    dialogueTree = await response.json();
+    console.log("Dialogue Tree:", dialogueTree);
 }
 
-// helper function to update elements
+/** UPDATE ELEMENT
+ * update html element property with value
+ * if value is null, element will be hidden
+ * if property is null, element will only be shown
+ * @param {string} elementID id of html element to be updated
+ * @param {*} value data to be used to update element property
+ * @param {string} property html element property to be changed (e.g. "src", "innerHTML")
+ */
 const updateElement = (elementID, value, property) => {
     const element = document.getElementById(elementID);
     element.style.display = value ? "block" : "none";
     if (value && property) element[property] = value;
 }
 
-// advance a panel
-const advance = () => {
-    panelIndex++;
-    const currentPanel = panels[panelIndex];
-    console.log("Panel: ", panelIndex, currentPanel);
+/** FORMAT TEXT
+ * format text from dialogue tree and state into update-ready format
+ * string inside {braces} is replaced with state[braces]
+ * string inside [brackets] is highlighted
+ * @param {string} input input string
+ * @param {Object} state current state
+ * @returns {string} formatted text for element updating
+ */
+const formatText = (input, state) => {
+    return input.replaceAll('[', "<span class=\"highlight\">")
+    .replaceAll(']', "</span>")
+    .replace(/\{(\w+)\}/g, (_, key) => {
+        return state[key] ?? `{${key}}`;
+    });
+}
+
+// render node
+const renderNode = nodeID => {
+    // update state
+    state.currentNodeID = nodeID;
+    console.log("State: ", state);
+
+    const currentNode = dialogueTree[nodeID];
+    console.log("Current Node: ", nodeID, currentNode);
+
+    // render text
+    if (currentNode.text) updateElement(textElementID, `<h1>${formatText(currentNode.text, state)}</h1>`, "innerHTML");
+    else updateElement(textElementID);
     
-    // buttonless panel
-    if (panelIndex === 0) document.body.addEventListener("click", advance);
-    else document.body.removeEventListener("click", advance);
+    // render character
+    if (currentNode.character) updateElement(characterElementID, `assets/imgs/${currentNode.character}.png`, "src");
+    else updateElement(characterElementID);
+    
+    // render image
+    if (currentNode.image) updateElement(imageElementID, `assets/imgs/${currentNode.image}.png`, "src");
+    else updateElement(imageElementID);
 
-    // timed panels
-    if (panelIndex === 7 || panelIndex === 8 || panelIndex === 9 || panelIndex === 14) setTimeout(advance, 2500);
-
-    // image
-    updateElement("character_img", currentPanel.image, "src");
-
-    // dialogue
-    updateElement("dialogue", currentPanel.dialogue, "innerHTML");
-    if (currentPanel.insertName) document.getElementById("insert_name").innerText = username;
-
-    // buttons
-    const buttons = document.getElementById("buttons");
-    buttons.innerHTML = "";
-    if (currentPanel.buttons) {
-        currentPanel.buttons.forEach((button, index) => {
-            const buttonElement = document.createElement(button.type);
+    // render input
+    if (currentNode.input) updateElement(inputElementID, currentNode.input, "placeholder");
+    else updateElement(inputElementID);
+    
+    // render buttons
+    const button_container = document.getElementById("button_container");
+    button_container.innerHTML = "";
+    if (currentNode.responses) {
+        currentNode.responses.forEach((button, index) => {
+            const buttonElement = document.createElement("button");
             buttonElement.id = `button${index+1}`;
-            buttonElement.innerHTML = button.value;
-            buttonElement.addEventListener("click", advance);
-            buttons.appendChild(buttonElement);
+            buttonElement.innerHTML = formatText(button.label, state);
+            buttonElement.addEventListener("click", () => renderNode(button.next));
+            button_container.appendChild(buttonElement);
         });
     }
 
-    // input
-    updateElement("input", currentPanel.input);
+    // set timed nodes
+    if (currentNode.timeout) setTimeout(() => renderNode(currentNode.next), currentNode.timeout);
 
-    // card
-    updateElement("card", currentPanel.card);
-    document.getElementById("card_name").innerText = username;
-    if (currentPanel.card) document.getElementById("character_container").style.display = "none";
-    else document.getElementById("character_container").style.display = "flex";
+    // update state
+    if (currentNode.set) {
+        for (const key in currentNode.set) state[key] = currentNode.set[key];
+    }
 }
 
 // on page load
 document.addEventListener("DOMContentLoaded", async () => {
-    await loadPanels();
+    await getDialogue();
+    
+    // click anywhere to start
+    document.body.addEventListener("click", () => renderNode(head), { once: true });
+
     document.body.style.display = "block";
-    console.log("Page loaded");
-    advance();
+    console.log("Page loaded"); 
+    console.log("State: ", state);
 });
 
-// on input
-const usernameInput = document.getElementById("username_input");
-usernameInput.addEventListener("keydown", event => {
-    if (event.key === "Enter" && usernameInput.value) {
-        username = usernameInput.value;
-        advance();
+// on input submit
+document.getElementById(inputElementID).addEventListener("keydown", ({ key, target }) => {
+    if (key === "Enter" && target.value) {
+        if (dialogueTree[state.currentNodeID].input === "Your Name") state.userName = target.value;
+        else if (dialogueTree[state.currentNodeID].input === "Duck's Name") state.duckName = target.value;
+        target.value = "";
+        renderNode(dialogueTree[state.currentNodeID].next);
     }
 });
