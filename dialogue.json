@@ -35,7 +35,7 @@
         "next": "duck_recognize"
     },
     "duck_recognize": {
-        "text": "Quackems! Why wait a minute! I remember you! You're miss...<span class=\"highlight\">buggems</span>! Is that right?",
+        "text": "Quackems! Why wait a minute! I remember you! You're miss...[buggems]! Is that right?",
         "image": "surprised_duck",
         "responses": [
             {
@@ -58,7 +58,7 @@
         "next": "duck_right_introduction"
     },
     "duck_right_introduction": {
-        "text": "Why yes, that's me! <span class=\"highlight\">{duckName}</span>, at your service!",
+        "text": "Why yes, that's me! [{duckName}], at your service!",
         "image": "duck",
         "responses": [
             {
@@ -66,7 +66,7 @@
                 "next": "duck_special_day"
             },
             {
-                "label": "nice to see you again <span class=\"highlight\">{duckName}</span>!",
+                "label": "nice to see you again [{duckName}]!",
                 "next": "duck_special_day"
             }
         ]
@@ -78,13 +78,13 @@
         "next": "duck_wrong_name"
     },
     "duck_wrong_name": {
-        "text": "Ah that's right, how could I forget? Miss <span class=\"highlight\">{userName}</span>! So good to see you again! Do you remember my name?",
+        "text": "Ah that's right, how could I forget? Miss [{userName}]! So good to see you again! Do you remember my name?",
         "image": "duck",
         "input": "Duck's Name",
         "next": "duck_wrong_introduction"
     },
     "duck_wrong_introduction": {
-        "text": "Yes! Your memory is much sharper than mine it seems. <span class=\"highlight\">{duckName}</span> at your service!",
+        "text": "Yes! Your memory is much sharper than mine it seems. [{duckName}] at your service!",
         "image": "duck",
         "responses": [
             {
@@ -92,7 +92,7 @@
                 "next": "duck_special_day"
             },
             {
-                "label": "nice to see you again <span class=\"highlight\">{duckName}</span>!",
+                "label": "nice to see you again [{duckName}]!",
                 "next": "duck_special_day"
             }
         ]

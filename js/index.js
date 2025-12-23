@@ -19,16 +19,32 @@ const getDialogue = async () => {
     console.log("Dialogue Tree:", dialogueTree);
 }
 
-// helper function to update elements
+/** UPDATE ELEMENT
+ * update html element property with value
+ * if value is null, element will be hidden
+ * if property is null, element will only be shown
+ * @param {string} elementID id of html element to be updated
+ * @param {*} value data to be used to update element property
+ * @param {string} property html element property to be changed (e.g. "src", "innerHTML")
+ */
 const updateElement = (elementID, value, property) => {
     const element = document.getElementById(elementID);
     element.style.display = value ? "block" : "none";
     if (value && property) element[property] = value;
 }
 
-// helper function to resolve text
-const resolveText = (template, state) => {
-    return template.replace(/\{(\w+)\}/g, (_, key) => {
+/** FORMAT TEXT
+ * format text from dialogue tree and state into update-ready format
+ * string inside {braces} is replaced with state[braces]
+ * string inside [brackets] is highlighted
+ * @param {string} input input string
+ * @param {Object} state current state
+ * @returns {string} formatted text for element updating
+ */
+const formatText = (input, state) => {
+    return input.replaceAll('[', "<span class=\"highlight\">")
+    .replaceAll(']', "</span>")
+    .replace(/\{(\w+)\}/g, (_, key) => {
         return state[key] ?? `{${key}}`;
     });
 }
@@ -43,9 +59,8 @@ const renderNode = nodeID => {
     console.log("Current Node: ", nodeID, currentNode);
 
     // render text
-    if (currentNode.text) updateElement(textElementID, `<h1>${resolveText(currentNode.text, state)}</h1>`, "innerHTML");
+    if (currentNode.text) updateElement(textElementID, `<h1>${formatText(currentNode.text, state)}</h1>`, "innerHTML");
     else updateElement(textElementID);
-    // if (currentNode.insertName) document.getElementById("insert_name").innerText = username;
     
     // render image
     if (currentNode.image) updateElement(imageElementID, `assets/imgs/${currentNode.image}.png`, "src");
@@ -62,7 +77,7 @@ const renderNode = nodeID => {
         currentNode.responses.forEach((button, index) => {
             const buttonElement = document.createElement("button");
             buttonElement.id = `button${index+1}`;
-            buttonElement.innerHTML = resolveText(button.label, state);
+            buttonElement.innerHTML = formatText(button.label, state);
             buttonElement.addEventListener("click", () => renderNode(button.next));
             button_container.appendChild(buttonElement);
         });
@@ -75,12 +90,6 @@ const renderNode = nodeID => {
     if (currentNode.set) {
         for (const key in currentNode.set) state[key] = currentNode.set[key];
     }
-
-    // card
-    // updateElement("card", currentNode.card);
-    // document.getElementById("card_name").innerText = username;
-    // if (currentNode.card) document.getElementById("character_container").style.display = "none";
-    // else document.getElementById("character_container").style.display = "flex";
 }
 
 // on page load
