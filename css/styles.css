@@ -148,6 +148,18 @@ input {
     justify-content: center;
 }
 
+#newspaper {
+    width: 55%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#newspaper_img {
+    display: none;
+}
+
 #rotate_icon {
     height: 1em;
 }

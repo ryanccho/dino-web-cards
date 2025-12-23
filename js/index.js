@@ -8,8 +8,10 @@ let state = {
 
 // IDS
 const head = "start";
+// const head = "partner";
 const textElementID = "text";
-const imageElementID = "character_img";
+const characterElementID = "character_img";
+const imageElementID = "newspaper_img";
 const inputElementID = "text_input";
 
 // get dialogue from JSON
@@ -61,6 +63,10 @@ const renderNode = nodeID => {
     // render text
     if (currentNode.text) updateElement(textElementID, `<h1>${formatText(currentNode.text, state)}</h1>`, "innerHTML");
     else updateElement(textElementID);
+    
+    // render character
+    if (currentNode.character) updateElement(characterElementID, `assets/imgs/${currentNode.character}.png`, "src");
+    else updateElement(characterElementID);
     
     // render image
     if (currentNode.image) updateElement(imageElementID, `assets/imgs/${currentNode.image}.png`, "src");

@@ -1,22 +1,22 @@
 {
     "start": {
         "text": "(It's a beautiful snowy day. You're on a walk when you hear rustling in the bushes beside you.)",
-        "timeout": 500,
+        "timeout": 5000,
         "next": "duck_offscreen"
     },
     "duck_offscreen": {
         "text": "*Huff puff* My oh my, all this snow sure makes it hard to walk around!",
-        "timeout": 500,
+        "timeout": 5000,
         "next": "duck_appears"
     },
     "duck_appears": {
-        "image": "duck",
-        "timeout": 300,
-        "next": "duck_greeting"
+        "character": "duck",
+        "timeout": 2000,
+        "next": "greeting"
     },
-    "duck_greeting": {
+    "greeting": {
         "text": "Oh why hello there! Quite a snowy day today, isn't it?",
-        "image": "duck",
+        "character": "duck",
         "responses": [
             {
                 "label": "Sure is!",
@@ -30,76 +30,233 @@
     },
     "duck_pause": {
         "text": "...",
-        "image": "duck",
-        "timeout": 200,
-        "next": "duck_recognize"
+        "character": "duck",
+        "timeout": 2000,
+        "next": "recognize"
     },
-    "duck_recognize": {
+    "recognize": {
         "text": "Quackems! Why wait a minute! I remember you! You're miss...[buggems]! Is that right?",
-        "image": "surprised_duck",
+        "character": "surprised_duck",
         "responses": [
             {
                 "label": "That's me!",
-                "next": "duck_right"
+                "next": "remembered_name"
             },
             {
                 "label": "No...",
-                "next": "duck_wrong"
+                "next": "forgot_name"
             }
         ]
     },
-    "duck_right": {
+    "remembered_name": {
         "text": "Ah yes! You're the kind young lady whose valentine I delivered last year! Do you remember my name?",
-        "image": "duck",
+        "character": "duck",
         "input": "Duck's Name",
         "set": {
             "userName": "buggems"
         },
-        "next": "duck_right_introduction"
+        "next": "introduction"
     },
-    "duck_right_introduction": {
+    "introduction": {
         "text": "Why yes, that's me! [{duckName}], at your service!",
-        "image": "duck",
+        "character": "duck",
         "responses": [
             {
-                "label": "yayyyyy",
-                "next": "duck_special_day"
+                "label": "Yayyyyy",
+                "next": "special_day"
             },
             {
-                "label": "nice to see you again [{duckName}]!",
-                "next": "duck_special_day"
+                "label": "Nice to see you again [{duckName}]!",
+                "next": "special_day"
             }
         ]
     },
-    "duck_wrong": {
+    "forgot_name": {
         "text": "Oh I'm so sorry, I must have forgotten. I know I've met you before. What was your name again miss?",
-        "image": "duck",
+        "character": "duck",
         "input": "Your Name",
-        "next": "duck_wrong_name"
+        "next": "remind_name"
     },
-    "duck_wrong_name": {
+    "remind_name": {
         "text": "Ah that's right, how could I forget? Miss [{userName}]! So good to see you again! Do you remember my name?",
-        "image": "duck",
+        "character": "duck",
         "input": "Duck's Name",
-        "next": "duck_wrong_introduction"
+        "next": "sharp_memory"
     },
-    "duck_wrong_introduction": {
+    "sharp_memory": {
         "text": "Yes! Your memory is much sharper than mine it seems. [{duckName}] at your service!",
-        "image": "duck",
+        "character": "duck",
         "responses": [
             {
-                "label": "yayyyyy",
-                "next": "duck_special_day"
+                "label": "Yayyyyy",
+                "next": "special_day"
             },
             {
-                "label": "nice to see you again [{duckName}]!",
-                "next": "duck_special_day"
+                "label": "Nice to see you again [{duckName}]!",
+                "next": "special_day"
             }
         ]
     },
-    "duck_special_day": {
+    "special_day": {
         "text": "I recall we met on a very special day last year. It seems like today is yet another special day! Do you know what day it is?",
-        "image": "duck",
-        "responses": []
+        "character": "duck",
+        "responses": [
+            {
+                "label": "It's [Christmas]!!!",
+                "next": "its_christmas1"
+            },
+            {
+                "label": "It's Valentine's Day!",
+                "next": "its_valentines"
+            }
+        ]
+    },
+    "its_christmas1": {
+        "text": "Yes, yes! It's [Christmas]! That wonderful feeling I feel in the air must be the joy of holiday cheer.",
+        "character": "duck",
+        "responses": [
+            {
+                "label": "I can feel it too!",
+                "next": "news"
+            },
+            {
+                "label": "Must be!",
+                "next": "news"
+            }
+        ]
+    },
+    "its_valentines": {
+        "text": "Wha- Hmm...I don't think that's quite right. I sense something is in the air...something...[jolly]!",
+        "character": "duck",
+        "responses": [
+            {
+                "label": "It's [Christmas]!",
+                "next": "its_christmas2"
+            },
+            {
+                "label": "Sorry, I farted.",
+                "next": "fart"
+            }
+        ]
+    },
+    "its_christmas2": {
+        "text": "Ah yes, yes! It's [Christmas]! That wonderful feeling I feel in the air must be the joy of holiday cheer.",
+        "character": "duck",
+        "responses": [
+            {
+                "label": "I can feel it too!",
+                "next": "news"
+            },
+            {
+                "label": "Must be!",
+                "next": "news"
+            }
+        ]
+    },
+    "fart": {
+        "text": "Oh...my...what a forward young lady...Ahem- well if that's all it was, I guess I better leave you to it. Lots of mail to deliver today!",
+        "character": "duck",
+        "timeout": 6000,
+        "next": "zoom"
+    },
+    "news": {
+        "text": "Oh that's right, have you seen the news?",
+        "character": "duck",
+        "responses": [
+            {
+                "label": "What news?",
+                "next": "fortuitous"
+            },
+            {
+                "label": "Nope",
+                "next": "fortuitous"
+            }
+        ]
+    },
+    "fortuitous": {
+        "text": "Ah well, how fortuitous that you run into me! I've got today's paper right here! Here you are!",
+        "character": "duck",
+        "timeout": 5000,
+        "next": "newspaper"
+    },
+    "newspaper": {
+        "image": "holiday_bug",
+        "timeout": 10000,
+        "next": "wonderful"
+    },
+    "wonderful": {
+        "text": "It's wonderful news, isn't it? How wonderful it is to be reunited with someone you love!",
+        "character": "duck",
+        "timeout": 5000,
+        "next": "partner"
+    },
+    "partner": {
+        "text": "I see you are also reunited with someone. Who is that beside you?",
+        "character": "duck",
+        "responses": [
+            {
+                "label": "This is my [buggems]!",
+                "next": "thinking"
+            },
+            {
+                "label": "This is [Mr. Buggycho]!",
+                "next": "thinking"
+            }
+        ]
+    },
+    "thinking": {
+        "text": "[Bugg]...",
+        "character": "duck",
+        "timeout": 2000,
+        "next": "realization"
+    },
+    "realization": {
+        "text": "Wait a minute, you two...You are [buggemses]!",
+        "character": "surprised_duck",
+        "responses": [
+            {
+                "label": "That's us that's us!",
+                "next": "christmas_sight"
+            },
+            {
+                "label": "Of course you silly duck!",
+                "next": "christmas_sight"
+            }
+        ]
+    },
+    "christmas_sight": {
+        "text": "My goodness, how did I not see it before? If course! What a wonderful [Christmas] sight! [Buggemses] reunited again!",
+        "character": "duck",
+        "timeout": 5000,
+        "next": "leaving"
+    },
+    "leaving": {
+        "text": "Well in that case, you two should enjoy your [Christmas] together! I best be off, someone has to share this wonderful news!",
+        "character": "surprised_duck",
+        "responses": [
+            {
+                "label": "Thank you [{duckName}]!",
+                "next": "merry_christmas"
+            },
+            {
+                "label": "Merry Christmas [{duckName}]!",
+                "next": "merry_christmas"
+            }
+        ]
+    },
+    "merry_christmas": {
+        "text": "A very [Merry Christmas] to you both!",
+        "character": "duck",
+        "timeout": 5000,
+        "next": "zoom"
+    },
+    "zoom": {
+        "text": "([{duckName}] zooms off)",
+        "character": "poof",
+        "timeout": 3000,
+        "next": "end"
+    },
+    "end": {
+        "text": "The End."
     }
 }
