@@ -1,17 +1,22 @@
 {
     "start": {
+        "text": "Tap/click anywhere to start",
+        "continue": true,
+        "next": "opening"
+    },
+    "opening": {
         "text": "(It's a beautiful snowy day. You're on a walk when you hear rustling in the bushes beside you.)",
-        "timeout": 5000,
+        "continue": true,
         "next": "duck_offscreen"
     },
     "duck_offscreen": {
         "text": "*Huff puff* My oh my, all this snow sure makes it hard to walk around!",
-        "timeout": 5000,
+        "continue": true,
         "next": "duck_appears"
     },
     "duck_appears": {
         "character": "duck",
-        "timeout": 2000,
+        "timeout": 1500,
         "next": "greeting"
     },
     "greeting": {
@@ -31,7 +36,7 @@
     "duck_pause": {
         "text": "...",
         "character": "duck",
-        "timeout": 2000,
+        "timeout": 1500,
         "next": "recognize"
     },
     "recognize": {
@@ -156,7 +161,7 @@
     "fart": {
         "text": "Oh...my...what a forward young lady...Ahem- well if that's all it was, I guess I better leave you to it. Lots of mail to deliver today!",
         "character": "duck",
-        "timeout": 6000,
+        "continue": true,
         "next": "zoom"
     },
     "news": {
@@ -176,18 +181,18 @@
     "fortuitous": {
         "text": "Ah well, how fortuitous that you run into me! I've got today's paper right here! Here you are!",
         "character": "duck",
-        "timeout": 5000,
+        "continue": true,
         "next": "newspaper"
     },
     "newspaper": {
         "image": "holiday_bug",
-        "timeout": 10000,
+        "continue": true,
         "next": "wonderful"
     },
     "wonderful": {
         "text": "It's wonderful news, isn't it? How wonderful it is to be reunited with someone you love!",
         "character": "duck",
-        "timeout": 5000,
+        "continue": true,
         "next": "partner"
     },
     "partner": {
@@ -207,7 +212,7 @@
     "thinking": {
         "text": "[Bugg]...",
         "character": "duck",
-        "timeout": 2000,
+        "timeout": 1500,
         "next": "realization"
     },
     "realization": {
@@ -227,12 +232,12 @@
     "christmas_sight": {
         "text": "My goodness, how did I not see it before? If course! What a wonderful [Christmas] sight! [Buggemses] reunited again!",
         "character": "duck",
-        "timeout": 5000,
+        "continue": true,
         "next": "leaving"
     },
     "leaving": {
         "text": "Well in that case, you two should enjoy your [Christmas] together! I best be off, someone has to share this wonderful news!",
-        "character": "surprised_duck",
+        "character": "duck",
         "responses": [
             {
                 "label": "Thank you [{duckName}]!",
@@ -247,13 +252,13 @@
     "merry_christmas": {
         "text": "A very [Merry Christmas] to you both!",
         "character": "duck",
-        "timeout": 5000,
+        "continue": true,
         "next": "zoom"
     },
     "zoom": {
         "text": "([{duckName}] zooms off)",
         "character": "poof",
-        "timeout": 3000,
+        "continue": true,
         "next": "end"
     },
     "end": {

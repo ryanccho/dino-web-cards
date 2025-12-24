@@ -8,7 +8,7 @@ let state = {
 
 // IDS
 const head = "start";
-// const head = "partner";
+// const head = "news";
 const textElementID = "text";
 const characterElementID = "character_img";
 const imageElementID = "newspaper_img";
@@ -92,6 +92,12 @@ const renderNode = nodeID => {
     // set timed nodes
     if (currentNode.timeout) setTimeout(() => renderNode(currentNode.next), currentNode.timeout);
 
+    // click anywhere to continue
+    if (currentNode.continue) {
+        // set timeout to prevent button click bubbling
+        setTimeout(() => document.body.addEventListener("click", () => renderNode(currentNode.next), { once: true }), 0);
+    }
+
     // update state
     if (currentNode.set) {
         for (const key in currentNode.set) state[key] = currentNode.set[key];
@@ -101,13 +107,10 @@ const renderNode = nodeID => {
 // on page load
 document.addEventListener("DOMContentLoaded", async () => {
     await getDialogue();
-    
-    // click anywhere to start
-    document.body.addEventListener("click", () => renderNode(head), { once: true });
-
     document.body.style.display = "block";
     console.log("Page loaded"); 
     console.log("State: ", state);
+    renderNode(head);
 });
 
 // on input submit
