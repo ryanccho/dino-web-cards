@@ -3,12 +3,13 @@ let dialogueTree;
 let state = {
     userName: "",
     duckName: "",
+    bugName: "",
     currentNodeID: ""
 };
 
 // IDS
 const head = "start";
-// const head = "partner";
+// const head = "news";
 const textElementID = "text";
 const characterElementID = "character_img";
 const imageElementID = "newspaper_img";
@@ -84,7 +85,10 @@ const renderNode = nodeID => {
             const buttonElement = document.createElement("button");
             buttonElement.id = `button${index+1}`;
             buttonElement.innerHTML = formatText(button.label, state);
-            buttonElement.addEventListener("click", () => renderNode(button.next));
+            buttonElement.addEventListener("click", () => {
+                if (button.set) for (const key in button.set) state[key] = button.set[key];
+                renderNode(button.next);
+            });
             button_container.appendChild(buttonElement);
         });
     }
@@ -92,22 +96,20 @@ const renderNode = nodeID => {
     // set timed nodes
     if (currentNode.timeout) setTimeout(() => renderNode(currentNode.next), currentNode.timeout);
 
-    // update state
-    if (currentNode.set) {
-        for (const key in currentNode.set) state[key] = currentNode.set[key];
+    // click anywhere to continue
+    if (currentNode.continue) {
+        // set timeout to prevent button click bubbling
+        setTimeout(() => document.body.addEventListener("click", () => renderNode(currentNode.next), { once: true }), 0);
     }
 }
 
 // on page load
 document.addEventListener("DOMContentLoaded", async () => {
     await getDialogue();
-    
-    // click anywhere to start
-    document.body.addEventListener("click", () => renderNode(head), { once: true });
-
     document.body.style.display = "block";
     console.log("Page loaded"); 
     console.log("State: ", state);
+    renderNode(head);
 });
 
 // on input submit
