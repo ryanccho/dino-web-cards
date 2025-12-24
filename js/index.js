@@ -3,6 +3,7 @@ let dialogueTree;
 let state = {
     userName: "",
     duckName: "",
+    bugName: "",
     currentNodeID: ""
 };
 
@@ -84,7 +85,10 @@ const renderNode = nodeID => {
             const buttonElement = document.createElement("button");
             buttonElement.id = `button${index+1}`;
             buttonElement.innerHTML = formatText(button.label, state);
-            buttonElement.addEventListener("click", () => renderNode(button.next));
+            buttonElement.addEventListener("click", () => {
+                if (button.set) for (const key in button.set) state[key] = button.set[key];
+                renderNode(button.next);
+            });
             button_container.appendChild(buttonElement);
         });
     }
@@ -96,11 +100,6 @@ const renderNode = nodeID => {
     if (currentNode.continue) {
         // set timeout to prevent button click bubbling
         setTimeout(() => document.body.addEventListener("click", () => renderNode(currentNode.next), { once: true }), 0);
-    }
-
-    // update state
-    if (currentNode.set) {
-        for (const key in currentNode.set) state[key] = currentNode.set[key];
     }
 }
 

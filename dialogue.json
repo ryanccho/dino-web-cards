@@ -45,6 +45,9 @@
         "responses": [
             {
                 "label": "That's me!",
+                "set": {
+                    "userName": "buggems"
+                },
                 "next": "remembered_name"
             },
             {
@@ -57,9 +60,6 @@
         "text": "Ah yes! You're the kind young lady whose valentine I delivered last year! Do you remember my name?",
         "character": "duck",
         "input": "Duck's Name",
-        "set": {
-            "userName": "buggems"
-        },
         "next": "introduction"
     },
     "introduction": {
@@ -190,10 +190,18 @@
         "next": "wonderful"
     },
     "wonderful": {
-        "text": "It's wonderful news, isn't it? How wonderful it is to be reunited with someone you love!",
+        "text": "It's wonderful news, isn't it? How wonderful it is for loved ones to be reunited for [Christmas]!",
         "character": "duck",
-        "continue": true,
-        "next": "partner"
+        "responses": [
+            {
+                "label": "It sure is!",
+                "next": "partner"
+            },
+            {
+                "label": "Yesss",
+                "next": "partner"
+            }
+        ]
     },
     "partner": {
         "text": "I see you are also reunited with someone. Who is that beside you?",
@@ -201,16 +209,28 @@
         "responses": [
             {
                 "label": "This is my [buggems]!",
-                "next": "thinking"
+                "set": {
+                    "bugName": "buggems"
+                },
+                "next": "nice_to_meet"
             },
             {
                 "label": "This is [Mr. Buggycho]!",
-                "next": "thinking"
+                "set": {
+                    "bugName": "Mr. Buggycho"
+                },
+                "next": "nice_to_meet"
             }
         ]
     },
+    "nice_to_meet": {
+        "text": "Ah, well nice to meet you [{bugName}]!",
+        "character": "duck",
+        "continue": true,
+        "next": "thinking"
+    },
     "thinking": {
-        "text": "[Bugg]...",
+        "text": "...",
         "character": "duck",
         "timeout": 1500,
         "next": "realization"
